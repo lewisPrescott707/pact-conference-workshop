@@ -10,7 +10,7 @@
 ### Fill in the blanks
 1. Using the API documentation provided create the contract file (`Note: json file is created on finalize command`)
 2. Update `cake-recipe.spec.js` & `index.js`
-Refer to the docs: [Pact](https://github.com/pact-foundation/pact-js#consumer-side-testing)
+| Refer to the docs: [Pact](https://github.com/pact-foundation/pact-js#consumer-side-testing)
 3. Run on cmd ```npm test```
 
 ### Upload to Broker
