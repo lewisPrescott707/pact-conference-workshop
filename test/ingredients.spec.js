@@ -20,7 +20,9 @@ describe("The Cake API", () => {
     pactfileWriteMode: "merge",
   })
 
-  const EXPECTED_BODY = like([])
+  const EXPECTED_BODY = like([""])
+
+  const CAKE_NAME = ""
 
   // Setup the provider
   before(() => provider.setup())
@@ -37,7 +39,7 @@ describe("The Cake API", () => {
         uponReceiving: "",
         withRequest: {
           method: "GET",
-          path: "/",
+          path: `/ingredients/${CAKE_NAME}`,
           headers: {
             Accept: "application/json",
           },
@@ -60,7 +62,7 @@ describe("The Cake API", () => {
         url: url,
         port: port,
       }
-      getMyIngredients(urlAndPort).then(response => {
+      getMyIngredients(urlAndPort, CAKE_NAME).then(response => {
         expect(response.data).to.eql(EXPECTED_BODY)
         done()
       }, done)
