@@ -4,7 +4,8 @@
   "description": "Mocha Pact example",
   "main": "index.js",
   "scripts": {
-    "test": "rimraf pacts && mocha"
+    "test": "rimraf pacts && mocha",
+    "publish": "pact-broker publish pacts/ --consumer-app-version=\"0.0.0\" --broker-base-url=https://ministryoftesting.pactflow.io --broker-token=28rffsCnIows2_YPNVmzSw"
   },
   "license": "MIT",
   "devDependencies": {
