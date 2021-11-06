@@ -2,7 +2,7 @@
 
 const axios = require("axios")
 
-exports.getMeIngredients = endpoint => {
+exports.getMyIngredients = endpoint => {
   const url = endpoint.url
   const port = endpoint.port
 

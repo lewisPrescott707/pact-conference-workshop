@@ -2,24 +2,25 @@
 
 const expect = require("chai").expect
 const path = require("path")
-const { Pact } = require("@pact-foundation/pact")
-const { getMeIngredients } = require("../index")
+const { Pact, Matchers } = require("@pact-foundation/pact")
+const { like } = Matchers
+const { getMyIngredients } = require("../index")
 
 describe("The Cake API", () => {
   let url = "http://localhost"
   const port = 8992
 
   const provider = new Pact({
+    consumer: "MyConsumer",
+    provider: "MyProvider",
     port: port,
     log: path.resolve(process.cwd(), "logs", "mockserver-integration.log"),
     dir: path.resolve(process.cwd(), "pacts"),
     spec: 2,
-    consumer: "MyConsumer",
-    provider: "MyProvider",
     pactfileWriteMode: "merge",
   })
 
-  const EXPECTED_BODY = [{}]
+  const EXPECTED_BODY = like([])
 
   // Setup the provider
   before(() => provider.setup())
@@ -31,13 +32,12 @@ describe("The Cake API", () => {
   afterEach(() => provider.verify())
 
   describe("get ingredients", () => {
-    before(done => {
+    beforeEach(done => {
       const interaction = {
         uponReceiving: "",
         withRequest: {
           method: "GET",
           path: "/",
-          query: "",
           headers: {
             Accept: "application/json",
           },
@@ -60,7 +60,7 @@ describe("The Cake API", () => {
         url: url,
         port: port,
       }
-      getMeIngredients(urlAndPort).then(response => {
+      getMyIngredients(urlAndPort).then(response => {
         expect(response.data).to.eql(EXPECTED_BODY)
         done()
       }, done)
