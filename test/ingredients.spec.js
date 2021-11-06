@@ -20,22 +20,18 @@ describe("The Cake API", () => {
     pactfileWriteMode: "merge",
   })
 
+  // Add ingredients here
   const EXPECTED_BODY = like([""])
 
+  // Add cake name here
   const CAKE_NAME = ""
 
-  // Setup the provider
-  before(() => provider.setup())
-
-  // Write Pact when all tests done
-  after(() => provider.finalize())
-
-  // verify with Pact, and reset expectations
-  afterEach(() => provider.verify())
-
   describe("get ingredients", () => {
-    beforeEach(done => {
+    after(() => provider.finalize())
+
+    before(done => {
       const interaction = {
+        // Add test scenario description here
         uponReceiving: "",
         withRequest: {
           method: "GET",
@@ -52,10 +48,15 @@ describe("The Cake API", () => {
           body: EXPECTED_BODY,
         },
       }
-      provider.addInteraction(interaction).then(() => {
+      provider
+      .setup()
+      .then(() => {
+        provider.addInteraction(interaction)
         done()
       })
     })
+
+    afterEach(() => provider.verify())
 
     it("returns the correct response", done => {
       const urlAndPort = {
@@ -63,9 +64,9 @@ describe("The Cake API", () => {
         port: port,
       }
       getMyIngredients(urlAndPort, CAKE_NAME).then(response => {
-        expect(response.data).to.eql(EXPECTED_BODY)
+        expect(response.data).to.be.a("array")
         done()
-      }, done)
+      }).catch(done)
     })
   })
 })
