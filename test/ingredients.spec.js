@@ -21,10 +21,10 @@ describe("The Cake API", () => {
   })
 
   // Add ingredients here
-  const EXPECTED_BODY = like([""])
+  const EXPECTED_BODY = like(["cocoa powder", "butter", "flour"])
 
   // Add cake name here
-  const CAKE_NAME = ""
+  const CAKE_NAME = "chocolate"
 
   describe("get ingredients", () => {
     after(() => provider.finalize())
@@ -32,7 +32,7 @@ describe("The Cake API", () => {
     before(done => {
       const interaction = {
         // Add test scenario description here
-        uponReceiving: "",
+        uponReceiving: "get request for chocolate ingredients",
         withRequest: {
           method: "GET",
           path: `/ingredients/${CAKE_NAME}`,
